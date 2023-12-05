@@ -1,5 +1,5 @@
-
 import re
+import string
 
 def main():
     plate = input("Plate: ")
@@ -15,6 +15,10 @@ def is_valid(s):
 
     # First two character must be letters
     if not s[:2].isalpha():
+        return False
+    
+    # Check for periods, spaces, and punctuation marks
+    if any(char in string.punctuation for char in s):
         return False
 
     # Find first digit.
