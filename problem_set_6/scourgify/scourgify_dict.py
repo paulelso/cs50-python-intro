@@ -22,23 +22,23 @@ def valid_args():
         sys.exit(1)
     
 def output_formatted_lines(file):
-        students = []
+        my_dict = {}
         with open(file, 'r') as input_file:
             reader = csv.reader(input_file)
             headers = next(reader)  # Get the headers
             headers.extend(['first', 'last', 'house']) # Add new headers
             for line in input_file:
                 last, first, house = line.strip().replace('"', '').replace(", ", ",").split(',')
-                students.append([first, last, house])
-                #sorted_dict = dict(sorted(my_dict.items(), key=lambda x : x[1] )) # Sort dictionary by last name
+                my_dict.update({first: [last, house]})
+                sorted_dict = dict(sorted(my_dict.items(), key=lambda x : x[1] )) # Sort dictionary by last name
 
-        with open(sys.argv[2], 'w') as output_file:
+        with open('after.csv', 'w') as output_file:
             fieldnames = ['first', 'last', 'house']
             headers.extend(fieldnames) # Add new headers
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
-            for student in students:                
-                writer.writerow({'first': student[0], 'last': student[1], 'house': student[2]})
+            for key, value in sorted_dict.items():
+                writer.writerow({'first': key, 'last': value[0], 'house': value[1]})
             
 def main():
     if valid_args():
