@@ -4,21 +4,21 @@ import sys
 
 def valid_args():
     try:
-        if len(sys.argv) > 3:
+        if len(sys.argv) > 3: # Check for too many arguments
             print("Too many command line arguments")
             return False
             sys.exit(1)
-        elif len(sys.argv) < 3:
+        elif len(sys.argv) < 3: # Check for too few arguments
             print("Too few command line arguments")
             return False
             sys.exit(1)
-        elif len(sys.argv) == 3:
+        elif len(sys.argv) == 3: # Check for correct number of arguments
             if os.path.exists(sys.argv[1]):
                 return True
             else:
                 print(f"Could not read {sys.argv[1]}")
                 sys.exit(1)
-    except IndexError:
+    except IndexError: # Check for IndexError
         sys.exit(1)
     
 def output_formatted_lines(file):
@@ -29,9 +29,8 @@ def output_formatted_lines(file):
             headers.extend(['first', 'last', 'house']) # Add new headers
             for line in input_file:
                 last, first, house = line.strip().replace('"', '').replace(", ", ",").split(',')
-                students.append([first, last, house])
-                #sorted_dict = dict(sorted(my_dict.items(), key=lambda x : x[1] )) # Sort dictionary by last name
-
+                students.append([first, last, house])                
+                
         with open(sys.argv[2], 'w') as output_file:
             fieldnames = ['first', 'last', 'house']
             headers.extend(fieldnames) # Add new headers
