@@ -1,15 +1,9 @@
 import re
 import sys
 
+
 def main():
-    input_time = input("Hours: ")
-    #regex_to = r'.* to .*'    
-    if not valid_input(input_time):
-        raise ValueError(f"Invalid format: {input_time}")
-    times = input_time.split(" to ")
-    start = times[0]
-    end = times[1]
-    print(f"{convert(start)} to {convert(end)}")
+    print(convert(input("Hours: ")))
 
 
 def valid_input(s):
@@ -22,10 +16,21 @@ def valid_input(s):
     for regex in regexs:
         if re.match(regex, s):
             return True
+       
     return False
     
 
 def convert(s):
+    if not valid_input(s):
+        raise ValueError(f"Invalid format: {s}")
+    times = s.split(" to ")
+    start = times[0]
+    end = times[1]
+    start_24 = convert_to_24hr(start)
+    end_24 = convert_to_24hr(end)
+    return (f"{start_24} to {end_24}")
+
+def convert_to_24hr(s):
     regex1 = r"\d{1,2}:\d{2} [AP]M" # 10:30 AM
     regex2 = r"\d{1,2} [AP]M" # 10 AM
     if re.match(regex1, s):
