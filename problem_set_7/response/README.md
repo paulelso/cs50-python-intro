@@ -1,0 +1,3 @@
+# Response Validation
+
+Response Validation https://cs50.harvard.edu/python/2022/psets/7/response/#response-validation is a Regular Expressions problem challenge that using either validator-collection or validators from PyPI, prompts the user for an email address via input and then prints Valid or Invalid, respectively, if the input is a syntatically valid email address. You may not use re. And do not validate whether the email address’s domain name actually exists.
