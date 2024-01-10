@@ -1,35 +1,28 @@
 import calendar
 from datetime import datetime
+from datetime import timedelta
+import inflect
+import sys
 
 def main():
-    #dob = input("Date of birth: ")
-    s_dob = "2022-12-03"
-    dob = datetime.strptime(s, r'%Y-%m-%d').date()
-    b_y, b_m, b_d = (dob).strftime('%Y-%m-%d').split("-")
-    today = datetime.today().date()
-    t_y, t_m, t_d = (today).strftime('%Y-%m-%d').split("-")
-    if t_m > b_m:
-        print(t_m, b_m)
-        print(t_d, b_d)
-    print(t_y, t_m, t_d)
+    #today_dt_obj = datetime.strptime(input("Today's date: "), r'%Y-%m-%d').date()
+    #today_dt_obj = datetime.today().date()
+    
+    try:
+        dob_dt_obj = datetime.strptime(input("Date of birth: "), r'%Y-%m-%d').date()
+    except ValueError:
+        print("Invalid date")
+        exit(1)
+    #today_dt_obj = datetime.strptime(today_dt_obj, r'%Y-%m-%d').date()
+    print(f"{return_words(dob_dt_obj)} minutes")
 
-    """
-    days = 0
-    mins = 0
-    print(today.year - (dob.year + 1))
-    for year in range(dob.year + 1, today.year):
-        if is_leap_year(year):
-            days = 366
-        else:
-            days = 365
-        mins += days * 24 * 60
-    print(mins)
-    """
-
-def is_leap_year(year):
-    if calendar.isleap(year):
-        return True
-
+def return_words(dob_dt_obj, today_dt_obj=None):
+    if today_dt_obj is None:
+        today_dt_obj = datetime.today().date()
+    delta = today_dt_obj - dob_dt_obj
+    minutes = int(delta.total_seconds() / 60)
+    words = inflect.engine().number_to_words(minutes)
+    return words.capitalize().replace(" and ", " ").strip()
 
 if __name__ == "__main__":
     main()
