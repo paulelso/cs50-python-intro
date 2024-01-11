@@ -25,8 +25,8 @@ def convert_minutes_to_words(minutes):
     # Convert minutes to English words
     minutes_in_words = p.number_to_words(minutes)    
     # Capitalize the words
-    capitalized_minutes_in_words = minutes_in_words.capitalize().replace(" and ", " ") + " minutes"
-    return capitalized_minutes_in_words
+    capitalized_minutes_in_words = minutes_in_words.capitalize()
+    return capitalized_minutes_in_words.replace(" and ", " ") + " minutes"
 
 if __name__ == "__main__":
     main()
